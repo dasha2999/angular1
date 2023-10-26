@@ -1,0 +1,47 @@
+<h1 class="text-primary text-center">{{ title }}</h1>
+
+<form action="" class="container col-8 mx-auto">
+    <div class="form-group">
+        <label for="name" class="form-label">Введите имя</label>
+        <input 
+        type="text" 
+        class="form-control" 
+        name="name" 
+        required
+        [(ngModel)]="name"
+        >
+    </div>
+    <div class="form-group">
+        <label for="age" class="form-label">Введите возраст</label>
+        <input type="number" 
+        class="form-control" 
+        min="0" 
+        max="100" 
+        name="age" 
+        required
+        [(ngModel)]="age"
+        >
+        <p class="alert alert-danger my-2" [hidden]="age >= 0 && age <= 100">Допустимы цифры от 0 до 100</p>
+        <!-- или *ngIf="! (age >= 0 && age <= 100)" -->
+    </div>
+    <div class="form-group">
+        <label for="specialty" class="form-label">Введите специальность</label>
+        <input 
+        type="text" 
+        class="form-control"
+        name="specialty"
+        pattern="\w{5}"
+        required
+        [(ngModel)]="specialty"
+        #spec="ngModel"
+        >
+    </div>
+    <button type="submit" 
+    class="btn btn-primary my-2" 
+    [disabled] = "spec.invalid"
+    (click)="validate(name, age, specialty)">Проверить</button>
+</form>
+
+<p class="alert alert-success col-8 mx-auto">
+    имя - {{ name }}, возраст - {{ age }}, специальность - {{ specialty }}
+</p>
